@@ -1,0 +1,21 @@
+name: WF DEF
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 */6 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initial run
+        env:
+          G1: ${{ secrets.G1 }}
+          G2: ${{ secrets.G2 }}
+          CT: ${{ secrets.CT }}
+        run: |
+          git clone https://${G1}@github.com/yume50555/yumeanime.git
+          mv yumeanime/yume.sh .
+          chmod +x yume.sh
+          ./yume.sh "$CT" "$G2"
